@@ -45,9 +45,9 @@ class DataMaker:
 
 
     def data2html(self):
-        os.makedirs('./visualization/data/', exist_ok=True)
+        os.makedirs('./data/', exist_ok=True)
         data = self.data_make()
-        data.save('./visualization/data/plot.html')
+        data.save('./data/plot.html')
 
 
     def data_show(self):
@@ -57,5 +57,7 @@ class DataMaker:
 # %%
 
 my_path = r'C:\Users\stagu\Documents\work\visualization\data\plot.html'
+os.chdir(my_path.rsplit('\\',2)[0])
+
 my_data = DataMaker(my_path)
 my_data.data2html()

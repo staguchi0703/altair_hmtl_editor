@@ -7,8 +7,16 @@ import webbrowser
 #%%
 
 class html_editor:
-    def __init__(self, path):
+    def __init__(self, path, contents):
+        '''
+        path:       place where html is.
+        contents:   dict-type (contentsはdictがネストされている)
+                    items = {'item1':'ほげほっふぇ', 'item': 'fugafuga'}
+                    contents = {'title':'New plot!', 'items': items} 
+        '''
+
         self.path = path
+        self.contents = contents
 
     def open_html(self):
         with open(self.path) as f:
@@ -31,11 +39,11 @@ class html_editor:
 
         # title tag
         title_txt = bs4().new_tag("title")
-        title_txt.string = 'New plot!'
+        title_txt.string = self.contents['title']
 
         # h1 tag
         h1_txt = bs4().new_tag("h1")
-        h1_txt.string = 'New plot!'
+        h1_txt.string = self.contents['title']
 
         # htmlへ追加
         html_txt = self.read_all()
@@ -45,11 +53,43 @@ class html_editor:
 
         return html_txt
 
+    def add_items(self):
+        '''
+        itemsのkeyをリストにする
+        itemsのvalueをネストしたリストにする
+        '''
+
+        # ul tag
+        ul_tag = bs4().new_tag("ul")
+
+        # item key tag
+        html_txt = self.add_header()
+
+        html_txt.body.h1.insert_after(ul_tag)
+
+
+        items = self.contents['items']
+        for k, v in items.items():
+            # li tag
+            li_tag = bs4().new_tag("li")
+            li_tag.string = k +': ' + v
+            html_txt.body.ul.append(li_tag)
+
+        return html_txt
+
 
 #%%
 my_path = 'C:/Users/stagu/Documents/work/visualization/data/plot.html'
-my_edited_html = html_editor(my_path)
-edited_txt = my_edited_html.add_header().contents[-1]
+
+# 以下に変数で設定
+items = {'goal':'target', 'geha': 'fugafuga'}
+title_txt = 'Wow plot!'
+
+# contents はいじらない
+contents = {'title':title_txt, 'items': items} 
+
+my_edited_html = html_editor(my_path, contents)
+edited_txt = my_edited_html.add_items().contents[-1]
 
 #%%
 with open(my_path, mode='w') as outf:

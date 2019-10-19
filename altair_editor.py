@@ -7,16 +7,16 @@ import webbrowser
 #%%
 
 class html_editor:
-    def __init__(self, path, contents):
+    def __init__(self, path, title, items_dic):
         '''
         path:       place where html is.
-        contents:   dict-type (contentsはdictがネストされている)
-                    items = {'item1':'ほげほっふぇ', 'item': 'fugafuga'}
-                    contents = {'title':'New plot!', 'items': items} 
+        title_txt: txt
+        items_dic:  items_dict = {'item1':'ほげほっふぇ', 'item': 'fuga'} 
         '''
 
         self.path = path
-        self.contents = contents
+        self.title = title_txt
+        self.items_dic = items_dic
 
     def open_html(self):
         with open(self.path) as f:
@@ -39,11 +39,11 @@ class html_editor:
 
         # title tag
         title_txt = bs4().new_tag("title")
-        title_txt.string = self.contents['title']
+        title_txt.string = self.title
 
         # h1 tag
         h1_txt = bs4().new_tag("h1")
-        h1_txt.string = self.contents['title']
+        h1_txt.string = self.title
 
         # htmlへ追加
         html_txt = self.read_all()
@@ -68,8 +68,8 @@ class html_editor:
         html_txt.body.h1.insert_after(ul_tag)
 
 
-        items = self.contents['items']
-        for k, v in items.items():
+        items_dic = self.items_dic
+        for k, v in items_dic.items():
             # li tag
             li_tag = bs4().new_tag("li")
             li_tag.string = k +': ' + v
@@ -79,16 +79,13 @@ class html_editor:
 
 
 #%%
-my_path = 'C:/Users/stagu/Documents/work/visualization/data/plot.html'
+my_path = r'C:\Users\spuns\OneDrive\ドキュメント\work\altair_hmtl_editor\data\plot.html'
 
 # 以下に変数で設定
-items = {'goal':'target', 'geha': 'fugafuga'}
+items_dic = {'goal':'target', 'geha': 'fugafuga'}
 title_txt = 'Wow plot!'
 
-# contents はいじらない
-contents = {'title':title_txt, 'items': items} 
-
-my_edited_html = html_editor(my_path, contents)
+my_edited_html = html_editor(my_path, title_txt, items_dic)
 edited_txt = my_edited_html.add_items().contents[-1]
 
 #%%

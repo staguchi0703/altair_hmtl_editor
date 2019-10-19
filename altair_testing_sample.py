@@ -56,7 +56,7 @@ class DataMaker:
 
 # %%
 
-my_path = r'C:\Users\stagu\Documents\work\visualization\data\plot.html'
+my_path = r'C:\Users\spuns\OneDrive\ドキュメント\work\altair_hmtl_editor\data\plot.html'
 os.chdir(my_path.rsplit('\\',2)[0])
 
 my_data = DataMaker(my_path)

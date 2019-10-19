@@ -72,8 +72,16 @@ class html_editor:
         for k, v in items_dic.items():
             # li tag
             li_tag = bs4().new_tag("li")
-            li_tag.string = k +': ' + v
+            li_tag.string = k
             html_txt.body.ul.append(li_tag)
+
+            # ul tag
+            ul_tag = bs4().new_tag("ul")
+            html_txt.body.ul.li.insert_after(ul_tag)
+
+            # li_tag = bs4().new_tag("li")
+            # li_tag.string = v
+            # html_txt.body.ul.li.ul.append(li_tag)
 
         return html_txt
 
@@ -82,7 +90,7 @@ class html_editor:
 my_path = r'C:\Users\spuns\OneDrive\ドキュメント\work\altair_hmtl_editor\data\plot.html'
 
 # 以下に変数で設定
-items_dic = {'goal':'target', 'geha': ['fugafuga11111111', 'hegehege222222222222']}
+items_dic = {'goal':'target', 'geha': 'fugafuga11111111 hegehege222222222222'}
 title_txt = 'Wow plot!'
 
 my_edited_html = html_editor(my_path, title_txt, items_dic)

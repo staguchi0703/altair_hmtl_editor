@@ -82,7 +82,7 @@ class html_editor:
 my_path = r'C:\Users\spuns\OneDrive\ドキュメント\work\altair_hmtl_editor\data\plot.html'
 
 # 以下に変数で設定
-items_dic = {'goal':'target', 'geha': 'fugafuga'}
+items_dic = {'goal':'target', 'geha': ['fugafuga11111111', 'hegehege222222222222']}
 title_txt = 'Wow plot!'
 
 my_edited_html = html_editor(my_path, title_txt, items_dic)
